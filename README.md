@@ -20,13 +20,13 @@ void main()
   switch(opcion)
   {
     case 1:
-            printf("Numero de acciones que desea comprar");
+            printf("Numero de acciones que desea comprar:");
             scanf(%d,&cantidad);
-            compra(acciones,cantidad);
+            compra(acciones,cantidad); 
             break;
     
     case 2:
-            printf("Numero de acciones que desea vender");
+            printf("Numero de acciones que desea vender ");
             scanf(%d,&cantidad);
             venta(acciones,cantidad);
             break;
@@ -47,6 +47,13 @@ void compra(int acciones, int cantidad)
   }
   
   void venta(int acciones, int cantidad)
+  {
+      if (acciones<cantidad)
+        printf("No posee suficientes acciones para vender\n");
+      else
+        acciones-=cantidad;
+        printf(""Su numero de acciones actual es: %d\n", acciones);
+  }
       
     
             
