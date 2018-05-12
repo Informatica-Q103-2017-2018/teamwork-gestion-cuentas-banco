@@ -24,7 +24,8 @@ main()
   	int opcion;
   	int codigo;
   	float apunte;
-
+	inicializa_cuenta (usuario);
+	
 	do
 	{
 	
