@@ -8,87 +8,102 @@ struct cliente
 	int num_acciones;
 	float saldo;
 	
-}usuario [DIM];
+};
 
 void inicializa_cuenta (struct cliente *punt);
-void compra(int acciones, int cantidad);
-void venta(int acciones, int cantidad);
+void compra(int num_acciones, int cantidad);
+void venta(int num_acciones, int cantidad);
 
 main()
-{
+{	
+
 	char clave[7]={"ETSIDI"};
 	char palabra [7];
-	int orden;
-  	int acciones=15;
-  	int cantidad;
-  	int opcion;
-  	int codigo;
+	cliente banco[DIM], *punt= &cliente;
+	int orden,acciones=15,cantidad,opcion,codigo,i;
   	float apunte;
-	inicializa_cuenta (usuario);
+  	FILE*pf;
+	inicializa_cuenta (cliente);
+
+
 	
 	do
 	{
 	
-	printf ("Introduzca la clave de acceso:");
-	gets (palabra);
-	
-	orden = strcmp (clave,palabra);
-	
-	if (orden!=0)
-	{
-	
-			printf ("\nLa clave introducida es INCORRECTA\n");
-			printf ("Vuelva a intentarlo\n\n");
-	}
 
+		printf ("Introduzca la clave de acceso:");
+		gets (palabra);
+		
+		orden = strcmp (clave,palabra);
+		
+		if (orden!=0)
+		{ 
+				printf ("\nLa clave introducida es INCORRECTA\n");
+				printf ("Vuelva a intentarlo\n\n");
 	
-	if (orden==0)
-	{
-	printf ("\nLa clave introducida es CORRECTA\n\n");
-	printf ("Que operacion desea realizar ahora:\n\n");
-	printf ("1. Compra de acciones.\n");
-  	printf ("2. Venta de acciones.\n");
-  	printf ("3. Salir.\n");
-  	printf ("\n Opcion:");
-  	scanf ("%d",&opcion);
-  
-  	switch(opcion)
-  	{
-    	case 1:
-    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
-            scanf("%d",&codigo);
-            printf("Numero de acciones que desea comprar:");
-            scanf("%d",&cantidad);
-           	apunte=cantidad *5;
-            usuario[codigo].saldo+=apunte;
-            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
-            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-            compra(acciones,cantidad);
-            break;
-    
-    	case 2:
-    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
-            scanf("%d",&codigo);
-            printf("Numero de acciones que desea vender:");
-            scanf("%d",&cantidad);
-           	apunte=cantidad *5;
-            usuario[codigo].saldo-=apunte;
-            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
-            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-            venta(acciones,cantidad);
-            break;
-            
-    	case 3:
-            return;
-            
-    	default:
-            printf("Opcion invalida");
-    }
-            
+		}
+	
+		if (orden==0)
+		{
+		printf ("\nLa clave introducida es CORRECTA\n\n");
+		pf = fopen("banco.txt", "w+"); 
+		if (pf == NULL) 
+		{ printf("Error al abrir el fichero.\n"); 
+		return -1; } 
+		else 
+		{ 
+		 
+		printf ("Que operacion desea realizar ahora:\n\n");
+		printf ("1. Compra de acciones.\n");
+	  	printf ("2. Venta de acciones.\n");
+	  	printf ("3. Salir.\n");
+	  	printf ("\n Opcion:");
+	  	scanf ("%d",&opcion);
+	  
+	  	switch(opcion)
+	  	{
+	    	case 1:
+	    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
+	            scanf("%d",&codigo);
+	            printf("Su numero de acciones actual es: %d\n", acciones);
+	            printf("Numero de acciones que desea comprar:");
+	            scanf("%d",&cantidad);
+	           	apunte=cantidad *5.0;
+	            banco[codigo].saldo+=apunte;
+	            printf ("\nLa cuenta %i esta actualizada\n",banco[codigo].num_cuenta);
+	            printf ("El nuevo saldo es %.2f\n",banco[codigo].saldo);
+	            compra(acciones,cantidad);
+	            banco[codigo].num_acciones=acciones; 
+	               
+	            break;
+	    
+	    	case 2:
+	    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
+	            scanf("%d",&codigo);
+	            printf("Su numero de acciones actual es: %d\n", acciones);
+	            printf("Numero de acciones que desea vender:");
+	            scanf("%d",&cantidad);
+	           	apunte=cantidad *5.0;
+	            banco[codigo].saldo-=apunte;
+	            printf ("\nLa cuenta %i esta actualizada\n",banco[codigo].num_cuenta);
+	            printf ("El nuevo saldo es %.2f\n",banco[codigo].saldo);
+	            venta(acciones,cantidad);
+	            banco[codigo].num_acciones=acciones;   
+	            break;
+	            
+	    	case 3:
+	            return;
+	            
+	    	default:
+	            printf("Opcion invalida");
+	    }
+	     
+		}
 	}
    }while (orden !=0);
+	fprintf(pf, "%d\t %d\t %.2f\t", banco[codigo].num_cuenta,banco[codigo].num_acciones, banco[codigo].saldo);
+	fclose(pf); 
 }
-
 
 void inicializa_cuenta (struct cliente *punt)
 {
