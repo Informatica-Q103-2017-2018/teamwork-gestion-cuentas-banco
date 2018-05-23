@@ -12,8 +12,8 @@ struct cliente
 };
 
 void inicializa_cuenta (struct cliente *punt);
-void compra(int num_acciones, int cantidad); 
-void venta(int num_acciones, int cantidad);
+void compra(int acciones, int cantidad); 
+void venta(int acciones, int cantidad);
 
 
 main()
@@ -52,7 +52,7 @@ main()
 
 	if (i>3)
 	{
-	printf ("\nACCESO DENEGADO\n\n");		
+		printf ("\nACCESO DENEGADO\n\n");		
 	}
 	
 	else
@@ -87,6 +87,7 @@ main()
 			            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
 			            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
 			            compra(acciones,cantidad);
+			            usuario[codigo].num_acciones=acciones+cantidad; 
 			            break;
 			    
 			    	case 2:
@@ -100,7 +101,7 @@ main()
 			            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
 			            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
 			            venta(acciones,cantidad);
-			            //usuario[codigo].num_acciones=acciones;   
+			        	usuario[codigo].num_acciones=acciones-cantidad;   
 			            break;
 			            
 			    	case 3:
@@ -125,7 +126,7 @@ void inicializa_cuenta (struct cliente *punt)
 
 	for (i=0;i<DIM;i++,punt++)
 	{
-		punt->num_cuenta = (2700+i);
+		punt->num_cuenta=(2700+i);
 		punt->num_acciones;
 		punt->saldo=3000;
 	}
