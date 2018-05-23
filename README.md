@@ -18,11 +18,10 @@ void venta(int num_acciones, int cantidad);
 
 main()
 {
-	int e=0,l,x,i=1;
 	char clave[7]={"ETSIDI"};
 	char palabra [7];
 	struct cliente usuario [DIM];
-	int orden,acciones=15,cantidad,opcion,codigo;
+	int i=1,orden,acciones=15,cantidad,opcion,codigo;
 	float apunte;
 	FILE*pf;
 	inicializa_cuenta (usuario);
@@ -33,37 +32,33 @@ main()
 	{
 		printf ("Introduzca la clave de acceso:");
 		gets (palabra);
-		l=strlen(palabra);
-		if (l!=6)
+		
+		orden = strcmp (clave,palabra);
+		
+		if (orden!=0)
 		{
 			++i;
+			printf ("\nLa clave introducida es INCORRECTA\n\n");
 			continue;
+			
 		}
-		for (x=0;x<l;++x)
-		{
-			if (clave[x]!=palabra[x])
-			{
-				++i;
-				e=1;
-				break;
-			}
-		}
-		if (e==0)
-		break;
 		
-		//printf ("\nLa clave introducida es INCORRECTA\n");
-		//printf ("Vuelva a intentarlo\n\n");
+		if (orden==0)
+		{
+			break;
+		}
+		
 	}
-	
+
 	if (i>3)
 	{
-	printf ("Acceso denegado\n\n");		
+	printf ("\nACCESO DENEGADO\n\n");		
 	}
 	
 	else
 	{
-		printf ("\nLa clave introducida es CORRECTA\n");
-		printf ("Acceso permitido\n\n");
+		printf ("\nLa clave introducida es CORRECTA\n\n");
+		printf ("ACCESO PERMITIDO\n\n");
 		
 			pf = fopen("banco.txt", "w+"); 
 			if (pf == NULL) 
@@ -92,7 +87,6 @@ main()
 			            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
 			            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
 			            compra(acciones,cantidad);
-			            /*usuario[codigo].num_acciones=acciones;*/ 
 			            break;
 			    
 			    	case 2:
@@ -152,6 +146,3 @@ void venta(int acciones, int cantidad)
 		acciones-=cantidad; 
 		printf("Su numero de acciones actual es: %d\n", acciones); 
 }
-    
-            
-          
