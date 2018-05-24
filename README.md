@@ -72,12 +72,13 @@ main()
 		  	printf ("3. Salir.\n");
 		  	printf ("\n Opcion:");
 		  	scanf ("%d",&opcion);
-		  
-			  	switch(opcion)
+		  	printf("Codigo usuario ? <De 0 a %i>",DIM-1);
+			scanf("%d",&codigo);
+			if(codigo==0 || codigo==1 ||codigo==2 ||codigo==3 ||codigo==4)
+	        {
+				switch(opcion)
 			  	{
 			    	case 1:
-			    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
-			            scanf("%d",&codigo);
 			            printf("Su numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
 			            printf("Numero de acciones que desea comprar:");
 			            scanf("%d",&cantidad);
@@ -91,8 +92,6 @@ main()
 			            break;
 			    
 			    	case 2:
-			    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
-			            scanf("%d",&codigo);
 			            printf("Su numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
 			            printf("Numero de acciones que desea vender:");
 			            scanf("%d",&cantidad);
@@ -114,6 +113,11 @@ main()
 			    	default:
 			            printf("Opcion invalida");
 		    	}
+				}
+		    	else
+		    	{
+		    		 printf("Codigo invalido");	
+				}
 		     
 	}
 	
@@ -124,6 +128,7 @@ main()
 	fclose(pf); 
 	
 }
+
 
 void inicializa_cuenta (struct cliente *punt) 
 { 
@@ -148,8 +153,9 @@ void venta(int num_acciones, int cantidad)
 { 
 	
 	if (num_acciones<cantidad)
-	
+	{
 	 	printf("\nNo posee suficientes acciones para vender\n"); 
+	 }
 	
 	else 
 	{
