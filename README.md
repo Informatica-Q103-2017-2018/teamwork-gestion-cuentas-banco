@@ -12,8 +12,8 @@ struct cliente
 };
 
 void inicializa_cuenta (struct cliente *punt);
-void compra(int acciones, int cantidad); 
-void venta(int acciones, int cantidad);
+void compra(int num_acciones, int cantidad); 
+void venta(int num_acciones, int cantidad);
 
 
 main()
@@ -21,8 +21,7 @@ main()
 	char clave[7]={"ETSIDI"};
 	char palabra [7];
 	struct cliente usuario [DIM];
-	int i=1,orden,acciones=15,cantidad,opcion,codigo;
-	float apunte;
+	int i=1,orden,acciones,cantidad,opcion,codigo;
 	FILE*pf;
 	inicializa_cuenta (usuario);
 	
@@ -79,29 +78,34 @@ main()
 			    	case 1:
 			    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
 			            scanf("%d",&codigo);
-			            printf("Su numero de acciones actual es: %d\n", acciones);
+			            printf("Su numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
 			            printf("Numero de acciones que desea comprar:");
 			            scanf("%d",&cantidad);
-			           	apunte=cantidad *5.0;
-			            usuario[codigo].saldo+=apunte;
+			            compra(usuario[codigo].num_acciones,cantidad);
+			            usuario[codigo].num_acciones+=cantidad; 
+			            usuario[codigo].saldo-=cantidad*5.0;
 			            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
 			            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-			            compra(acciones,cantidad);
-			            usuario[codigo].num_acciones=acciones+cantidad; 
+			            
+			            
 			            break;
 			    
 			    	case 2:
 			    		printf("Codigo usuario ? <De 0 a %i>",DIM-1);
 			            scanf("%d",&codigo);
-			            printf("Su numero de acciones actual es: %d\n", acciones);
+			            printf("Su numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
 			            printf("Numero de acciones que desea vender:");
 			            scanf("%d",&cantidad);
-			           	apunte=cantidad *5.0;
-			            usuario[codigo].saldo-=apunte;
+			            venta(usuario[codigo].num_acciones,cantidad);
+			            if (usuario[codigo].num_acciones>cantidad) 
+						{
+							usuario[codigo].num_acciones-=cantidad; 
+							usuario[codigo].saldo+=cantidad*5.0;
+						}
 			            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
 			            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-			            venta(acciones,cantidad);
-			        	usuario[codigo].num_acciones=acciones-cantidad;   
+			            
+			        	
 			            break;
 			            
 			    	case 3:
@@ -113,9 +117,10 @@ main()
 		     
 	}
 	
-	 
-	
-	fprintf(pf, "%d\t %d\t %.2f\t", usuario[codigo].num_cuenta,usuario[codigo].num_acciones, usuario[codigo].saldo);
+	for(i=0;i<=4;i++)	
+	{
+		fprintf(pf, "\nCódigo cliente:\t%d\t Número de acciones:\t%d\t Saldo en cuenta:\t%.2f\t\n", usuario[i].num_cuenta,usuario[i].num_acciones, usuario[i].saldo);
+	}
 	fclose(pf); 
 	
 }
@@ -127,23 +132,30 @@ void inicializa_cuenta (struct cliente *punt)
 	for (i=0;i<DIM;i++,punt++)
 	{
 		punt->num_cuenta=(2700+i);
-		punt->num_acciones;
+		punt->num_acciones=15;
 		punt->saldo=3000;
 	}
 }
 
-void compra(int acciones, int cantidad) 
+void compra(int num_acciones, int cantidad) 
 { 
-	acciones+=cantidad; 
-	printf("Su numero de acciones actual es: %d\n", acciones);
+	num_acciones+=cantidad; 
+	printf("\nSu numero de acciones actual es: %d\n",num_acciones);
 	
 }
 
-void venta(int acciones, int cantidad) 
+void venta(int num_acciones, int cantidad) 
 { 
-	if (acciones<cantidad) 
-		printf("No posee suficientes acciones para vender\n"); 
+	
+	if (num_acciones<cantidad)
+	
+	 	printf("\nNo posee suficientes acciones para vender\n"); 
+	
 	else 
-		acciones-=cantidad; 
-		printf("Su numero de acciones actual es: %d\n", acciones); 
+	{
+		num_acciones-=cantidad; 
+		printf("\nSu numero de acciones actual es: %d\n",num_acciones); 
+	}
+		
 }
+	
