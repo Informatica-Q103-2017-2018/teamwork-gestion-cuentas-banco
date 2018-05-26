@@ -47,8 +47,7 @@ main()
 		{
 			break;
 		}
-		
-	}
+		}
 
 	if (i>3)
 	{
@@ -67,7 +66,7 @@ main()
 				return -1;
 			}
 			
-			while (opcion2 =='s')
+			while (opcion2 =='s'|| opcion2 =='S')
 			{
 			
 				printf ("Que operacion desea realizar:\n\n");
@@ -108,8 +107,7 @@ main()
 							}
 				            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
 				            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-				            
-				        	break;
+				            break;
 				            
 				    	default:
 				            printf("Opcion invalida");
@@ -134,14 +132,16 @@ main()
 			
 			}
 			    
-						while (opcion != 's')
+			while (opcion != 's' || opcion2 !='S')
 			{
 				printf("\n\n");
-				printf("Grascias por utilizar este programa\n\n");
+				printf("Gracias por utilizar este programa\n\n");
 				printf ("Hasta pronto!!\n\n");
 				break;		
 			}
 
+ 	 
+	
  	 }
 	
 	
