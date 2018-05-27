@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include<string.h>
 #define DIM 5
@@ -18,24 +19,24 @@ void venta(int num_acciones, int cantidad);
 
 main()
 {
-	char clave[7]={"ETSIDI"};
-	char palabra [7];
-	struct cliente usuario [DIM];
-	int i=1,orden,acciones,cantidad,opcion,codigo;
+	char palabra [7], clave[7]={"ETSIDI"}; //Clave para acceder al programa
+	struct cliente usuario [DIM]; //Vector de la estrcuctura cliente
+	int i=1,orden,cantidad,opcion,codigo;
 	char opcion2 ='s';
-	FILE*pf;
-	inicializa_cuenta (usuario);
+	FILE*pf; //Fichero
+	
+	inicializa_cuenta (usuario);  //Iniciaiza la estructura 
 	
 	
 	
-	while (i<4)
+	while (i<4) 
 	{
-		printf ("Introduzca la clave de acceso:");
+		printf ("Introduzca la clave de acceso:"); //Pedimos una clave para acceder al programa. La clave es ETSIDI.
 		gets (palabra);
 		
 		orden = strcmp (clave,palabra);
 		
-		if (orden!=0)
+		if (orden!=0)	//Si la clave es correcta
 		{
 			++i;
 			printf ("\nLa clave introducida es INCORRECTA\n\n");
@@ -43,14 +44,14 @@ main()
 			
 		}
 		
-		if (orden==0)
+		if (orden==0)// Si la clave es incorrecta
 		{
 			break;
 		}
 		
 	}
 
-	if (i>3)
+	if (i>3)//Otorga 3 intentos para poner la clave correcta. Si se sobrepsan, el programa se cierra.
 	{
 		printf ("\nACCESO DENEGADO\n\n");		
 	}
@@ -60,7 +61,7 @@ main()
 		printf ("\nLa clave introducida es CORRECTA\n\n");
 		printf ("ACCESO PERMITIDO\n\n");
 		
-			pf = fopen("banco.txt", "w+"); 
+			pf = fopen("banco.txt", "w+"); // Abrimos el fichero 'banco.txt', que si no existe en el ordenador, se crea automaticamente.
 			if (pf == NULL) 
 			{ 	
 				printf("Error al abrir el fichero.\n"); 
@@ -68,114 +69,90 @@ main()
 			}
 			
 				
-			while (opcion2 =='s'|| opcion2 =='S')
+			while (opcion2 =='s'|| opcion2 =='S') //El bucle acaba si se teclea algo distinto de s y S, cuand el usuario termina la primera operacion.
 			{
+				printf("\nCodigo usuario ? <De 0 a %i>",DIM-1); //Se pide el codigo de usuario para abrir las distintas cuentas
+				scanf("%d",&codigo); //El numero del codigo sera la posicion del vector usuario elegido.
 				
-				printf ("\nQue operacion desea realizar:\n\n");
-				printf ("1. Compra de acciones.\n");
-				printf ("2. Venta de acciones.\n");
-				printf ("\nOpcion:");
-				scanf ("%d",&opcion);
+				if (codigo==0 || codigo==1 || codigo==2 || codigo==3 || codigo==4) //Si el codigo es valido, se procede a hacer la operacion deseada.
+				{
+					printf ("\nQue operacion desea realizar:\n\n");
+					printf ("1. Compra de acciones.\n");
+				  	printf ("2. Venta de acciones.\n");
+				   	printf ("\nOpcion:");
+				  	scanf ("%d",&opcion);
 				  
-					
 					switch(opcion)
 					  	{
 					    	case 1:
-					    		
-								printf("\nCodigo usuario ? <De 0 a %i>",DIM-1);
-								scanf("%d",&codigo);
-								if (codigo==0 || codigo==1 || codigo==2 || codigo==3 || codigo==4)
-				    				{
-						            printf("\nSu numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
-						            printf("\nNumero de acciones que desea comprar:");
-						            scanf("%d",&cantidad);
-						            compra(usuario[codigo].num_acciones,cantidad);
-						            usuario[codigo].num_acciones+=cantidad; 
-						            usuario[codigo].saldo-=cantidad*5.0;
-						            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
-						            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-						            break;
-						        	}
-					        	else
-					        		{
-					        		printf ("\nCodigo invalido\n");
-					        		break;
-									}
+					    			
+					            printf("\nSu numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
+					            printf("\nNumero de acciones que desea comprar:");
+					            scanf("%d",&cantidad);
+					            compra(usuario[codigo].num_acciones,cantidad);// Usamos la funcion compra
+					            usuario[codigo].num_acciones+=cantidad; 
+					            usuario[codigo].saldo-=cantidad*5.0; //Cada accion cuesta 5 euros
+					            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
+					            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
+					            break;
 					        	
 					
 					    
 					    	case 2:
 					    		
-						    	printf("\nCodigo usuario ? <De 0 a %i>",DIM-1);
-								scanf("%d",&codigo);
-								if (codigo==0 || codigo==1 || codigo==2 || codigo==3 || codigo==4)
-						    		{
-						            printf("\nSu numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
-						            printf("\nNumero de acciones que desea vender:");
-						            scanf("%d",&cantidad);
-						            venta(usuario[codigo].num_acciones,cantidad);
-						            if (usuario[codigo].num_acciones>cantidad) 
-									{
-										usuario[codigo].num_acciones-=cantidad; 
-										usuario[codigo].saldo+=cantidad*5.0;
-									}
-						            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
-						            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
-						            break;
-						        	}
-						       		else
-						        	{
-						        	printf ("Codigo invalido\n");
-						        	break;
-						        	}
-						        	
-					       	default:
+					    	
+					            printf("\nSu numero de acciones actual es: %d\n", usuario[codigo].num_acciones);
+					            printf("\nNumero de acciones que desea vender:");
+					             scanf("%d",&cantidad);
+					            venta(usuario[codigo].num_acciones,cantidad);// Usamos la funcion venta
+					            if (usuario[codigo].num_acciones>cantidad) 
+								{
+									usuario[codigo].num_acciones-=cantidad; 
+									usuario[codigo].saldo+=cantidad*5.0; // Cada accion cuesta 5 euros
+								}
+					            printf ("\nLa cuenta %i esta actualizada\n",usuario[codigo].num_cuenta);
+					            printf ("El nuevo saldo es %.2f\n",usuario[codigo].saldo);
+					            break;
+					        	
+					       		
+					            
+					    	default:
 					            printf("\nOpcion invalida\n");
 					            break;
 					
 				    	
 						}
+					}
 				
-			do
-			{
-					
-				printf("\nDesea repetir alguna operacion?(s/n)\n");
-				printf("Opcion:");
-				scanf("%c", &opcion2);
-				opcion2 = getchar();
-				
-				if (opcion2 =='n'|| opcion2 =='N') 
-			    {
-								
-				printf("\n\n");
-				printf("Gracias por utilizar este programa\n\n");
-				printf ("Hasta pronto!!\n\n");
-				}
-				if (opcion2 !='s'&& opcion2 !='S' && opcion2 !='n' && opcion2 !='N')
+				else 
 				{
-					
-					printf("\n\n");
-					printf("Creo que no me ha entendido bien\n\n");
+				printf("Codigo invalido"); // En caso de poner un numero que no sea 0-4 	
 				}
-			}while (opcion2 !='s'&& opcion2 !='S' && opcion2 !='n' && opcion2 !='N');
-				
-				
-		}
-			 
+																	
+				printf("\nDesea repetir alguna operacion?(s/n)\n");//Permite realizar mas operaciones al finalzar la anterior.
+				printf("Opcion:");
+				scanf("%c", &opcion2);  
+				opcion2=getchar();
 						
-			
-
- 	}
+								
+				}
+			    
+					
+			printf("\n\n");
+			printf("Gracias por utilizar este programa\n\n");
+			printf ("Hasta pronto!!\n\n");
+					
+ }
 	
 	
-	for(i=0;i<=4;i++)	
-	{
-		fprintf(pf, "\nCódigo cliente:\t%d\t Número de acciones:\t%d\t Saldo en cuenta:\t%.2f\t\n", usuario[i].num_cuenta,usuario[i].num_acciones, usuario[i].saldo);
-	}
-	fclose(pf); 
+for(i=0;i<=4;i++) //Imprime en el fichero las operaciones realizadas.	
+{
+	fprintf(pf, "\nCódigo cliente:\t%d\t Número de acciones:\t%d\t Saldo en cuenta:\t%.2f\t\n", usuario[i].num_cuenta,usuario[i].num_acciones, usuario[i].saldo);
+}
+fclose(pf); //Cerramos el fichero. 
 	
 }
-void inicializa_cuenta (struct cliente *punt) 
+void inicializa_cuenta (struct cliente *punt) //Abre los elementos del vector estrucutra.
 { 
 	int i;
 
@@ -187,14 +164,14 @@ void inicializa_cuenta (struct cliente *punt)
 	}
 }
 
-void compra(int num_acciones, int cantidad) 
+void compra(int num_acciones, int cantidad) // Suma la cantidad de acciones
 { 
 	num_acciones+=cantidad; 
 	printf("\nSu numero de acciones actual es: %d",num_acciones);
 	
 }
 
-void venta(int num_acciones, int cantidad) 
+void venta(int num_acciones, int cantidad) //Resta la cantidad de acciones, si existen suficientes para vender.
 { 
 	
 	if (num_acciones<cantidad)
@@ -208,4 +185,3 @@ void venta(int num_acciones, int cantidad)
 		printf("\nSu numero de acciones actual es: %d",num_acciones); 
 	}
 }
-
