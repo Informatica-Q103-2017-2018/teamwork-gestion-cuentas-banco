@@ -71,16 +71,19 @@ main()
 				
 			while (opcion2 =='s'|| opcion2 =='S') //El bucle acaba si se teclea algo distinto de s y S, cuand el usuario termina la primera operacion.
 			{
+				printf ("\nQue operacion desea realizar:\n\n");
+				printf ("1. Compra de acciones.\n");
+				printf ("2. Venta de acciones.\n");
+				printf ("\nOpcion:");
+				scanf ("%d",&opcion);
+				
+				
 				printf("\nCodigo usuario ? <De 0 a %i>",DIM-1); //Se pide el codigo de usuario para abrir las distintas cuentas
 				scanf("%d",&codigo); //El numero del codigo sera la posicion del vector usuario elegido.
 				
 				if (codigo==0 || codigo==1 || codigo==2 || codigo==3 || codigo==4) //Si el codigo es valido, se procede a hacer la operacion deseada.
 				{
-					printf ("\nQue operacion desea realizar:\n\n");
-					printf ("1. Compra de acciones.\n");
-				  	printf ("2. Venta de acciones.\n");
-				   	printf ("\nOpcion:");
-				  	scanf ("%d",&opcion);
+				
 				  
 					switch(opcion)
 					  	{
@@ -152,7 +155,7 @@ for(i=0;i<=4;i++) //Imprime en el fichero las operaciones realizadas.
 fclose(pf); //Cerramos el fichero. 
 	
 }
-void inicializa_cuenta (struct cliente *punt) //Abre los elementos del vector estrucutra.
+void inicializa_cuenta (struct cliente *punt) //Inicializa los elementos del vector estructura.
 { 
 	int i;
 
