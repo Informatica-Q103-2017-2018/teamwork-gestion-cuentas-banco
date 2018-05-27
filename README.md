@@ -182,7 +182,7 @@ void compra(int num_acciones, int cantidad) // Suma la cantidad de acciones
 	
 }
 
-void venta(int num_acciones, int cantidad) // Suma la cantidad de acciones
+void venta(int num_acciones, int cantidad) // Resta la cantidad de acciones
 { 
 	
 	if (num_acciones<cantidad)
