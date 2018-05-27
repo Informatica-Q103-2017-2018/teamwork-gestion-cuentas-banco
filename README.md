@@ -125,7 +125,7 @@ main()
 				        	}
 				       		else
 				        	{
-				        	printf ("Codido invalido\n");
+				        	printf ("\nCodigo invalido\n");
 				        	break;
 							}
 					
