@@ -133,16 +133,13 @@ main()
 					printf ("Codigo invalido\n");// En caso de poner un numero que no sea 0-4 
 					break;
 				}
-			}
+			
 						        
-			do
-			{
-				printf("\nDesea repetir alguna operacion?(s/n)\n");//Permite realizar mas operaciones al finalzar la anterior
-				printf("Opcion:");
-				scanf("%c", &opcion2);
-				opcion2 = getchar();
-			}while (opcion2 !='s'&& opcion2 !='S');
-				
+			printf("\nDesea repetir alguna operacion?(s/n)\n");//Permite realizar mas operaciones al finalzar la anterior
+			printf("Opcion:");
+			scanf("%c", &opcion2);
+			opcion2 = getchar();
+		}
 						
 			printf("\n\n");
 			printf("Gracias por utilizar este programa\n\n");
@@ -182,7 +179,7 @@ void compra(int num_acciones, int cantidad) // Suma la cantidad de acciones
 	
 }
 
-void venta(int num_acciones, int cantidad) // Resta la cantidad de acciones
+void venta(int num_acciones, int cantidad) // Resta la cantidad de acciones siempre y cuando haya suficientes
 { 
 	
 	if (num_acciones<cantidad)
@@ -196,4 +193,3 @@ void venta(int num_acciones, int cantidad) // Resta la cantidad de acciones
 		printf("\nSu numero de acciones actual es: %d",num_acciones); 
 	}
 }
-
